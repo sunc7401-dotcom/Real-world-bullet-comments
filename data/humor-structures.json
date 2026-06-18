@@ -1,0 +1,74 @@
+[
+  {
+    "id": "object_personification",
+    "name": "物体拟人",
+    "rule": "给物体情绪、立场或打工诉求",
+    "example": "电脑也在等下班"
+  },
+  {
+    "id": "identity_mismatch",
+    "name": "身份错位",
+    "rule": "把普通东西安排成离谱职位",
+    "example": "咖啡是项目延期保险"
+  },
+  {
+    "id": "function_reversal",
+    "name": "功能反转",
+    "rule": "交换人和工具的控制关系",
+    "example": "不是人在用电脑，是电脑在管理人"
+  },
+  {
+    "id": "literal_misreading",
+    "name": "字面误解",
+    "rule": "故意按字面曲解动作或名称",
+    "example": "扫地机器人正在给地板做绩效面谈"
+  },
+  {
+    "id": "causality_reversal",
+    "name": "因果倒置",
+    "rule": "把结果一本正经说成原因",
+    "example": "不是桌面乱，是文件在争取曝光"
+  },
+  {
+    "id": "deadpan_exaggeration",
+    "name": "一本正经夸大",
+    "rule": "用严肃口吻升级普通小事",
+    "example": "这一步操作足以载入公司野史"
+  },
+  {
+    "id": "workplace_analogy",
+    "name": "职场类比",
+    "rule": "套用汇报、绩效、背锅等职场逻辑",
+    "example": "键盘负责输出，人负责背锅"
+  },
+  {
+    "id": "game_analogy",
+    "name": "游戏术语类比",
+    "rule": "用副本、技能、掉线等游戏表达",
+    "example": "这个操作把新手教程打成隐藏副本"
+  },
+  {
+    "id": "system_status_analogy",
+    "name": "系统状态类比",
+    "rule": "把现场描述成报错或系统状态",
+    "example": "当前理智进程已停止响应"
+  },
+  {
+    "id": "pseudo_philosophy",
+    "name": "伪哲理",
+    "rule": "从小事推出荒谬人生结论",
+    "example": "桌面越满，说明空闲越抽象"
+  },
+  {
+    "id": "live_audience_reaction",
+    "name": "直播观众反应",
+    "rule": "模拟围观群众即时补刀",
+    "example": "观众席已经替这个操作尴尬完了"
+  },
+  {
+    "id": "premise_deconstruction",
+    "name": "前提拆解",
+    "rule": "先接受前提再指出离谱漏洞",
+    "example": "思路没问题，问题是它只有思路"
+  }
+]

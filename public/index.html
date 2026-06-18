@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>现实世界弹幕 AI</title>
+    <link rel="stylesheet" href="/styles.css?v=20260616-bgm-search" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="stage" aria-label="摄像头弹幕舞台">
+        <video id="camera" autoplay playsinline muted></video>
+        <canvas id="capture" width="768" height="432"></canvas>
+        <div id="danmakuLayer" class="danmaku-layer" aria-live="polite"></div>
+        <div class="title-ribbon">
+          <span id="statusDot" class="status-dot"></span>
+          <div>
+            <strong id="aiTitle">现实世界弹幕 AI</strong>
+            <small id="aiHook">选择右侧类型，让镜头进入不同玩法。</small>
+          </div>
+        </div>
+        <div class="hud">
+          <span id="fpsBadge">待机</span>
+          <span id="modelBadge">API 未检测</span>
+          <span id="heatBadge">热度 0</span>
+        </div>
+        <div class="heat-meter" aria-label="热度条">
+          <span id="heatBar"></span>
+        </div>
+      </section>
+
+      <aside class="control-panel">
+        <div class="brand">
+          <span class="brand-mark">弹</span>
+          <div>
+            <h1>现实世界弹幕 AI</h1>
+            <p>弹幕、挑战、导演三种工作台。</p>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="startBtn" class="primary" type="button">开启摄像头</button>
+          <button id="clearBtn" type="button">清屏</button>
+        </div>
+
+        <div class="type-tabs" role="tablist" aria-label="内容类型">
+          <button class="type-tab active" data-type="danmaku" type="button">弹幕</button>
+          <button class="type-tab" data-type="challenge" type="button">挑战</button>
+          <button class="type-tab" data-type="director" type="button">导演</button>
+        </div>
+
+        <section class="type-panel active" id="panel-danmaku">
+          <label>
+            场景输入
+            <textarea id="sceneInput" rows="3" placeholder="例如：这是比赛现场，镜头对着桌面上的咖啡和电脑。"></textarea>
+          </label>
+          <div class="scene-actions">
+            <button id="sceneConfirmBtn" type="button">确认场景</button>
+            <span id="sceneStatus">未设置场景</span>
+          </div>
+
+          <label>
+            弹幕间隔 <output id="intervalValue">800ms</output>
+            <input id="intervalRange" type="range" min="300" max="5000" step="100" value="800" />
+          </label>
+
+          <label>
+            弹幕密度 <output id="densityValue">2档</output>
+            <input id="densityRange" type="range" min="1" max="3" step="1" value="2" />
+          </label>
+
+          <div class="controls single">
+            <button id="danmakuToggleBtn" class="primary" type="button">开始弹幕</button>
+            <button id="danmakuOnceBtn" type="button">生成一轮</button>
+          </div>
+
+          <section class="feed">
+            <h2>弹幕列表</h2>
+            <ol id="danmakuList"></ol>
+          </section>
+        </section>
+
+        <section class="type-panel" id="panel-challenge" hidden>
+          <section class="play-card challenge-card">
+            <div class="section-title">
+              <h2>挑战任务</h2>
+              <span id="challengeDuration">待生成</span>
+            </div>
+            <strong id="challengeName">点击“挑战”会自动生成任务</strong>
+            <p id="challengeDescription">挑战只要求完成一个具体动作，AI 会按弹幕抽帧频率持续验收。</p>
+            <p id="challengeCriteria">验收标准：等待 AI 生成。</p>
+          </section>
+
+          <div class="score-board">
+            <strong id="challengeScore">当前分数 0</strong>
+            <span id="challengeResult">还没有开始验收。</span>
+          </div>
+
+          <div class="controls single">
+            <button id="validateBtn" class="primary" type="button">AI 验收挑战</button>
+            <button id="skipChallengeBtn" type="button">太难了，跳过</button>
+          </div>
+
+          <section class="best-frame">
+            <div class="section-title">
+              <h2>最高分画面</h2>
+              <span id="bestScore">0分</span>
+            </div>
+            <img id="bestFrameImg" alt="挑战最高分画面" />
+          </section>
+        </section>
+
+        <section class="type-panel" id="panel-director" hidden>
+          <section class="play-card">
+            <div class="section-title">
+              <h2>短视频方案</h2>
+              <span id="directorStatus">待生成</span>
+            </div>
+            <p id="directorOpening">结合最近弹幕和挑战，生成一条可导出的短视频。</p>
+            <p id="directorShot">镜头建议：等待 AI 分析。</p>
+            <p id="directorSubtitle">字幕文案：等待 AI 分析。</p>
+            <p id="directorEnding">结尾互动：等待 AI 分析。</p>
+          </section>
+
+          <section class="play-card">
+            <h2>成片素材</h2>
+            <p id="directorMaterial">会自动使用最近画面、弹幕列表和当前挑战任务。</p>
+          </section>
+
+          <section class="play-card bgm-card">
+            <div class="section-title">
+              <h2>BGM 热歌匹配</h2>
+              <span id="bgmStatus">待搜索</span>
+            </div>
+            <p id="selectedBgmText">会根据当前画面联网搜索适合的抖音热歌候选，选中后会写入导出视频标签。</p>
+            <div id="bgmList" class="bgm-list"></div>
+          </section>
+
+          <div class="controls single">
+            <button id="directorPlanBtn" class="primary" type="button">生成导演方案</button>
+            <button id="searchBgmBtn" type="button">联网匹配 BGM</button>
+          </div>
+
+          <div class="controls single full">
+            <button id="exportVideoBtn" type="button">导出 10 秒短视频+BGM</button>
+          </div>
+        </section>
+      </aside>
+    </main>
+
+    <script src="/app.js?v=20260616-bgm-search" type="module"></script>
+  </body>
+</html>
